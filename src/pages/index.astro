@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<BaseLayout>
+  <main>
+    <Hero />
+    <About />
+    <Projects />
+    <Contact />
+  </main>
+  <footer class="border-t border-border py-8 text-center text-sm text-muted">
+    &copy; 2026 Kiznavierr &middot; Built with Astro
+  </footer>
+</BaseLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('visible', entry.isIntersecting);
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll('section[data-animate]').forEach((el) => {
+    observer.observe(el);
+  });
+
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const delay = el.getAttribute('data-delay') ?? '0';
+          el.style.animationDelay = `${delay}ms`;
+          el.classList.add('visible');
+          cardObserver.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+
+  document.querySelectorAll('[data-delay]').forEach((el) => {
+    cardObserver.observe(el);
+  });
+</script>

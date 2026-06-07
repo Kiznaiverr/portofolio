@@ -1,0 +1,72 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+const projects = [
+  {
+    tag: "npm package",
+    tagColor: "amber",
+    title: "Luna",
+    description: "Library Node.js/TypeScript untuk generate gambar profil karakter Genshin Impact dari UID pemain. Dipublish di npm — bisa langsung dipakai siapapun sebagai dependency.",
+    tech: ["TypeScript", "Node.js"],
+    links: [
+      { label: "GitHub", url: "https://github.com/Kiznaiverr/luna" },
+      { label: "npm ↗", url: "https://www.npmjs.com/package/luna" },
+    ],
+    featured: true,
+  },
+  {
+    tag: "collab · backend",
+    tagColor: "orange",
+    title: "Akira API",
+    description: "Backend API yang mengtenagai Fukunime — aplikasi streaming anime. Dibangun sebagai bagian dari ekosistem Akira Group. Bertanggung jawab atas desain API dan pengembangan endpoint. Aplikasinya bisa didownload di fuku.fainshe.com.",
+    tech: ["TypeScript", "Node.js"],
+    links: [
+      { label: "GitHub Org ↗", url: "https://github.com/orgs/akira-api/" },
+      { label: "App ↗", url: "https://fuku.fainshe.com" },
+    ],
+    featured: false,
+  },
+  {
+    tag: "open source",
+    tagColor: "orange",
+    title: "Kunang-Kunang",
+    description: "Discord music bot berbasis TypeScript dan discord.js v14, dengan integrasi TikTok Live untuk kontrol musik lintas platform dan web overlay real-time untuk keperluan streaming.",
+    tech: ["TypeScript", "discord.js v14", "discord-player v7"],
+    links: [
+      { label: "GitHub ↗", url: "https://github.com/Kiznaiverr/kunang-kunang" },
+    ],
+    featured: false,
+  },
+  {
+    tag: "academic",
+    tagColor: "muted",
+    title: "iRent",
+    description: "Aplikasi mobile Flutter untuk manajemen penyewaan iPhone. Dibuat sebagai proyek akademik — menampilkan autentikasi pengguna, manajemen rental, dan panel admin.",
+    tech: ["Flutter", "Dart"],
+    links: [
+      { label: "GitHub ↗", url: "https://github.com/Kiznaiverr/iRent" },
+    ],
+    featured: false,
+  },
+] as const;
+---
+
+<section id="projects" data-animate class="relative border-t border-border px-6 md:px-16 py-24 md:py-32 overflow-hidden">
+  <div class="hidden md:block blob blob-3 size-96 bg-orange/5 -bottom-32 -right-32" aria-hidden="true"></div>
+  <div class="relative z-10 max-w-6xl">
+    <h2 class="font-display text-lg md:text-xl text-orange uppercase tracking-[0.15em] font-medium mb-4">
+      Projects
+    </h2>
+    <p class="font-body text-base md:text-lg text-muted mb-10 max-w-3xl">
+      Beberapa project yang pernah saya kerjakan — dari npm package,
+      API backend, Discord bot, hingga aplikasi mobile.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {projects.map((p, i) => (
+        <div class={i === 0 ? "md:col-span-2 xl:col-span-3" : ""}>
+          <ProjectCard {...p} delay={i * 80} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+---
+interface Props {
+  tag: string;
+  tagColor: "amber" | "orange" | "muted";
+  title: string;
+  description: string;
+  tech: readonly string[];
+  links: readonly { label: string; url: string }[];
+  featured?: boolean;
+  delay?: number;
+}
+
+const { tag, tagColor, title, description, tech, links, featured, delay = 0 } = Astro.props;
+
+const tagBgMap = {
+  amber: "bg-(--color-amber-dim)",
+  orange: "bg-(--color-orange-dim)",
+  muted: "bg-transparent",
+};
+const tagTextMap = {
+  amber: "text-(--color-amber)",
+  orange: "text-(--color-orange)",
+  muted: "text-(--color-muted)",
+};
+const cardOpacity = tagColor === "muted" ? "opacity-70 hover:opacity-100" : "";
+---
+
+<article
+  class="bg-surface border border-border rounded-lg p-6 transition-[border-color,opacity] duration-150 hover:border-orange {cardOpacity}"
+  data-delay={delay}
+>
+  <span class="inline-block {tagBgMap[tagColor]} {tagTextMap[tagColor]} text-[0.7rem] uppercase tracking-wide px-1.5 py-0.5 rounded">
+    {tag}
+  </span>
+  <h3 class="font-display text-xl font-medium text-text mt-3">{title}</h3>
+  <p class="font-body text-sm text-muted leading-[1.7] mt-2">{description}</p>
+  <div class="flex flex-wrap gap-2 mt-4">
+    {tech.map((t) => (
+      <span class="font-mono text-[0.7rem] text-muted border border-border px-1.5 py-0.5 rounded">{t}</span>
+    ))}
+  </div>
+  <div class="flex flex-wrap gap-4 mt-4">
+    {links.map((link) => (
+      <a href={link.url} target="_blank" rel="noopener noreferrer" class="font-body text-[0.8rem] text-orange hover:underline">{link.label}</a>
+    ))}
+  </div>
+</article>
